@@ -55,10 +55,10 @@ bash <(curl -L -s https://install.direct/go.sh)
 
 运行脚本位于系统的以下位置：
 
-```
-/etc/systemd/system/v2ray.service: Systemd
-/etc/init.d/v2ray: SysV
-```
+
+* `/etc/systemd/system/v2ray.service`: Systemd
+* `/etc/init.d/v2ray`: SysV
+
 
 脚本运行完成后，你需要：
 
