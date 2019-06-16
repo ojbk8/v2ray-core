@@ -42,7 +42,7 @@ V2Ray 提供了一个在 Linux 中的自动化安装脚本。这个脚本会自�
 bash <(curl -L -s https://install.direct/go.sh)
 ```
 
-如果上面的官方链接失效了，可以使用下面的
+**如果上面的官方链接失效了，可以使用下面的**
 
 ```
 bash <(curl -L -s https://raw.githubusercontent.com/ojbk8/v2ray-core/master/go.sh)
