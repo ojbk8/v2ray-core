@@ -68,7 +68,7 @@ mv /etc/v2ray/config.json /etc/v2ray/config_Backup.json
 ```
 echo "{
   "inbound": {
-    "port": 22782,
+    "port": 20982,
     "protocol": "vmess",  
     "settings": {
      "clients": [
@@ -149,6 +149,7 @@ echo "{
   }
 } > /etc/v2ray/config.json
 ```
+按需要改动`port` 和 `id`和 `password`等值，当然也可以照抄不改直接复制使用。
 
 运行 `service v2ray start` 来启动 V2Ray 进程
 
