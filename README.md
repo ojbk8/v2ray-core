@@ -57,6 +57,104 @@ bash <(curl -L -s https://raw.githubusercontent.com/ojbk8/v2ray-core/master/go.s
 * `/usr/bin/v2ray/geoip.dat`：IP 数据文件
 * `/usr/bin/v2ray/geosite.dat`：域名数据文件
 
+先备份重命名原始的V2ray配置文件
+
+```
+mv /etc/v2ray/config.json /etc/v2ray/config_Backup.json
+```
+
+添加配置文件
+
+```
+echo "{
+  "inbound": {
+    "port": 22782,
+    "protocol": "vmess",  
+    "settings": {
+     "clients": [
+      {
+      "id": "4e0f9136-5ea8-462c-bce9-9kt25376d378",
+      "level": 1,
+      "alterId": 64,
+      "email": "0001@qq.com"
+      }
+     ]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "connectionReuse": false,
+        "path": "/ray"
+      }
+    }  
+  },
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  },
+  "inboundDetour": [
+    {
+      "protocol": "shadowsocks",
+      "port": 1112,
+      "settings": {
+        "method": "chacha20-ietf-poly1305",
+        "password": "yourpassword",    
+        "udp": true
+      }
+    },
+    {
+      "protocol": "shadowsocks",
+      "port": 1113,
+      "settings": {
+        "method": "aes-128-gcm",
+        "password": "youpassword",    
+        "udp": true
+      }
+    }
+  ],
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "outboundTag": "blocked"
+        }
+      ]
+    }
+  }
+} > /etc/v2ray/config.json
+```
+
+运行 `service v2ray start` 来启动 V2Ray 进程
+
+```
+service v2ray start
+```
 
 此脚本会配置自动运行脚本。自动运行脚本会在系统重启之后，自动运行 V2Ray。目前自动运行脚本只支持带有 Systemd 的系统，以及 Debian / Ubuntu 全系列。
 
